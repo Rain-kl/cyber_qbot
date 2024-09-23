@@ -1,0 +1,3 @@
+[submodule "src/plugins/cyber/cyber_engine"]
+	path = src/plugins/cyber/cyber_engine
+	url = git@github.com:Rain-kl/cyber_engine.git
