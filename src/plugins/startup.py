@@ -1,14 +1,14 @@
-import asyncio
-from loguru import logger
-import nonebot
 import aiocqhttp
-
-from nonebot import on_startup, get_bot, on_websocket_connect
-
+import nonebot
+from loguru import logger
+from nonebot import on_startup, on_websocket_connect
+from websocket_client import client
 
 @on_startup
 async def startup():
     logger.debug('start init...')
+    await client.connect()
+
 
 
 @on_websocket_connect

@@ -1,2 +1,4 @@
-nonebot
+nonebot[scheduler]
 loguru
+websockets
+aiocqhttp
