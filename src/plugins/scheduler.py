@@ -8,10 +8,9 @@ from model import ResponseModel
 async def _():
     try:
         await client.send_tmq()
-        data = await asyncio.wait_for(client.receive_message(), timeout=1.5)
-        if data:
-            response_model = ResponseModel(**data)
-            logger.debug(f"Send -> Private: {data}")
+        response_model = await asyncio.wait_for(client.receive_message(), timeout=1.5)
+        if response_model:
+            logger.debug(f"Send -> Private: {response_model}")
             bot=nonebot.get_bot()
             await bot.send_private_msg(user_id=response_model.user_id, message=response_model.msg)
 

@@ -15,7 +15,7 @@ async def send(session: CommandSession):
             user_id=session.event.user_id,
             msg=str(session.event.message)
         )
-        await client.send_message(input_model.model_dump())
+        await client.send_message(input_model)
 
 
 # on_natural_language 装饰器将函数声明为一个自然语言处理器

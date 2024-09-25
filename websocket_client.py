@@ -1,23 +1,29 @@
 import json
+from typing import List
+
 import websockets
 from loguru import logger
+
+from model import InputModel, ResponseModel
 
 
 class WebSocketClient:
     def __init__(self):
         self.uri = None
         self.websocket = None
-        self.temp_mq = []
+        self.temp_mq: List[InputModel] = []
 
     async def connect(self, uri: str):
         self.uri = uri
         self.websocket = await websockets.connect(self.uri)
         logger.success("Connected!")
 
-    async def send_message(self, message: dict):
+    async def send_message(self, message: InputModel):
         if self.websocket:
             try:
-                await self.websocket.send(json.dumps(message))
+                await self.websocket.send(
+                    json.dumps(message.model_dump(), ensure_ascii=False)
+                )
             except websockets.exceptions.ConnectionClosedError:
                 self.temp_mq.append(message)
 
@@ -26,17 +32,14 @@ class WebSocketClient:
             await self.send_message(self.temp_mq[0])
             self.temp_mq.pop(0)
 
-    async def receive_message(self):
+    async def receive_message(self) -> ResponseModel:
         if self.websocket:
             try:
                 response = await self.websocket.recv()
-                return json.loads(response)
+                return ResponseModel(**json.loads(response))
             except websockets.exceptions.ConnectionClosedError:
                 logger.critical("Cyber Engine Connection Lost!")
                 await self.connect(self.uri)
-
-        else:
-            return None
 
     async def close(self):
         if self.websocket:
