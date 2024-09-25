@@ -2,3 +2,4 @@ nonebot[scheduler]
 loguru
 websockets
 aiocqhttp
+pydantic
