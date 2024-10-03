@@ -17,5 +17,5 @@ async def connect(event: aiocqhttp.Event):
     bot = nonebot.get_bot()
     groups = await bot.get_group_list()
     logger.info(f'Connected to {len(groups)} groups')
-    await bot.send_private_msg(user_id=2180302542, message="机器人已启动")
+    await bot.send_private_msg(user_id=2180302542, message="Online！")
     logger.success('Connected')
