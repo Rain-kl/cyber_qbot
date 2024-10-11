@@ -24,6 +24,8 @@ class WebSocketClient:
                 await self.websocket.send(
                     json.dumps(message.model_dump(), ensure_ascii=False)
                 )
+                logger.success("Process -> engine")
+
             except websockets.exceptions.ConnectionClosedError:
                 self.temp_mq.append(message)
 
