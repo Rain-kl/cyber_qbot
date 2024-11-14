@@ -1,8 +1,10 @@
 import asyncio
-from loguru import logger
+
 import nonebot
+from loguru import logger
+
 from websocket_client import client
-from model import ResponseModel
+
 
 @nonebot.scheduler.scheduled_job('interval', seconds=2)
 async def _():

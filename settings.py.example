@@ -1,9 +1,8 @@
 from nonebot.default_config import *
-import re
 
 DEBUG = False
 SUPERUSERS = {}
 # COMMAND_START = ['', re.compile(r'[/!]+')]
 HOST = '0.0.0.0'
 PORT = 8080
-WS_URI = "ws://127.0.0.1:8600/ws/qbot"
+WS_URI = "ws://127.0.0.1:8600/qbot"

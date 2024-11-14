@@ -38,7 +38,10 @@ class WebSocketClient:
         if self.websocket:
             try:
                 response = await self.websocket.recv()
-                return ResponseModel(**json.loads(response))
+                try:
+                    return ResponseModel(**json.loads(response))
+                except json.JSONDecodeError:
+                    logger.error(f"JSON Decode Error!\n{response}")
             except websockets.exceptions.ConnectionClosedError:
                 logger.critical("Cyber Engine Connection Lost!")
                 await self.connect(self.uri)
