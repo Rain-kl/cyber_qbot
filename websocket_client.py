@@ -19,6 +19,11 @@ class WebSocketClient:
         logger.success("Connected!")
 
     async def send_message(self, message: InputModel):
+        """
+        发送消息到核心
+        :param message:
+        :return:
+        """
         if self.websocket:
             try:
                 await self.websocket.send(
@@ -30,11 +35,19 @@ class WebSocketClient:
                 self.temp_mq.append(message)
 
     async def send_tmq(self):
+        """
+        发送临时消息队列中的消息
+        :return:
+        """
         if self.temp_mq:
             await self.send_message(self.temp_mq[0])
             self.temp_mq.pop(0)
 
     async def receive_message(self) -> ResponseModel:
+        """
+        从核心接收消息
+        :return:
+        """
         if self.websocket:
             try:
                 response = await self.websocket.recv()
